@@ -1,2 +1,3 @@
-# electron
-ELctron and React Basic application
+## Docs for development
+https://electron-react-boilerplate.js.org/docs/packaging
+
