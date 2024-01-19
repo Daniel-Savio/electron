@@ -10,6 +10,7 @@ const electronHandler = {
   minimize: () => ipcRenderer.send('minimize', 'minimize'),
   maximize: () => ipcRenderer.send('maximize', 'maximize'),
   devTools: () => ipcRenderer.send('devTools', 'devTools'),
+  send: (channel: any, args: any) => { ipcRenderer.send(channel, args);},
 
 
   askForScl: () => ipcRenderer.send('askFor', 'scl'),
