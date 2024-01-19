@@ -42,7 +42,7 @@ export default function App() {
           <div className="flex items-center ">
             <img src={require('./img/icon.svg')} className="h-10" />
             <h1 className="text-lg p-2 font-bold text-treetech-50">
-              Título
+              O Estagiário
             </h1>
           </div>
         </div>

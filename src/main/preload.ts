@@ -2,6 +2,21 @@ import { ipcRenderer } from "electron"
 const { contextBridge } = require('electron');
 
 
+// White-listed channels.
+const ipc = {
+  'render': {
+      // From render to main.
+      'send': [],
+      // From main to render.
+      'receive': [
+          'test:channel' // Our channel name
+      ],
+      // From render to main and back again.
+      'sendReceive': []
+  }
+};
+
+
 console.log("preloaded file")
 
 const electronHandler = {
@@ -9,18 +24,10 @@ const electronHandler = {
   close: () => ipcRenderer.send("closeApp", "closeApp"),
   minimize: () => ipcRenderer.send('minimize', 'minimize'),
   maximize: () => ipcRenderer.send('maximize', 'maximize'),
-  devTools: () => ipcRenderer.send('devTools', 'devTools'),
-
-
-  askForScl: () => ipcRenderer.send('askFor', 'scl'),
-  scl: (callback:any) => ipcRenderer.on('scl', (events, args)=>{
-    callback(args);
-  }),
-
-  askForFiles: () => ipcRenderer.send('askFor', 'files'),
-  files:(callback: any) => ipcRenderer.on('files', (events, args: Array<any>)=>{
-    callback(args);
-  }),
+  //updateSystem: (callback: any) => ipcRenderer.send('system-update', (events: any, args: any) => {callback(...args)}),
+  send: (channel: any, args: any) => {
+    ipcRenderer.send(channel, args);
+  },
 
 
   on: (channel: string, func: any) => ipcRenderer.send(channel, (evt: any, ...args: any[]) =>func(...args)),

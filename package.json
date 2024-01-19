@@ -1,19 +1,17 @@
 {
-  "description": "A foundation for scalable desktop apps - with all the front end thing that I use",
+  "description": "A application to automate some works in the SD+",
   "keywords": [
     "electron",
-    "boilerplate",
     "react",
     "typescript",
     "ts",
-    "webpack"
+    "webpack",
+    "SD+"
   ],
   "license": "MIT",
   "author": {
     "name": "Daniel Sávio"
-
   },
-
   "main": "./src/main/main.ts",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
@@ -82,8 +80,10 @@
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^5.3.0",
+    "puppeteer": "^21.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-imask": "^7.3.0",
     "react-router-dom": "^6.11.2",
     "svg-url-loader": "^8.0.0",
     "tailwind": "^4.0.0",

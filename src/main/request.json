@@ -1,0 +1,21 @@
+{
+    "connection":
+    {
+        "type": ["Entrada", "Saída"],
+        "meio": ["Serial", "TCP"],
+        "protocol":
+        {
+            "Modbus":{"default":502}, 
+            "DNP3": {"default":20000} 
+        },
+        "port": ""
+    },
+
+    "IED":
+    {
+        "nome":"",
+        "mapeamento":"",
+        "endereco":""
+
+    }
+}

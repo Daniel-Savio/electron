@@ -2,11 +2,16 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import SCL from './scl'
-import XML from './xml';
+
+
 import fs from 'fs'
+import {Bot} from './bot';
+
+const sdpAdmin = {user: "treetech", passwd: "sd@admin#"}
+const sdgAdmin = {user: "admin", passwd: "senh@Intern@"}
+const standard = {user: "default", passwd: "Default123"}
+
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -99,8 +104,6 @@ const createWindow = async () => {
 
 
 
-
-
 // Window controller
 ipcMain.on('closeApp', async (event, arg) => {
     mainWindow!.close()
@@ -122,18 +125,6 @@ ipcMain.on('maximize', async (event, arg) => {
     
 });
 
-ipcMain.on('askFor', async (event, arg) => {
-  if(arg === "scl") 
-  mainWindow!.webContents.send("scl", "Resposta do Backend");
-  
-});
-
-ipcMain.on('askFor', async (event, arg) => {
-  if(arg === 'files'){
-    mainWindow!.webContents.send('files', "Outra resposta do Backend")
-  }
-})
-
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
@@ -151,6 +142,36 @@ app.whenReady().then(() => {
       if (mainWindow === null) createWindow();
     });
   }).catch(console.log);
+
+
+ipcMain.on('system-update', async (event, arg) => {
+  console.log("sistem update called")
+  update(arg)
+});
+
+
+
+
+
+async function updateSystem(bot: Bot){
+  await bot.buildIntern()
+  await bot.login()
+  await bot.updateSystem()
+}
+
+async function update(IPs: string[]){
+  let bots: Bot[] = []
+  IPs.forEach(ip => {
+    bots.push( new Bot(ip, sdpAdmin) )
+  })
+ 
+  bots.forEach(bot =>{
+     updateSystem(bot);
+
+  })
+
+
+}
 
 
 
